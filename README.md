@@ -1,5 +1,5 @@
 # sgan
-Semi-Supervised Generative Adversarial network for Pulsar Candidate Identification.
+## **Semi-Supervised Generative Adversarial network for Pulsar Candidate Identification.**
 
 Procedure to Use the Code:
 
