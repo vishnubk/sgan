@@ -1,5 +1,5 @@
 Filename, SGAN_score
-candidate_100_beam_04_segment_0_589.52ms_Cand.pfd,0
-candidate_125_beam_04_segment_0_4514.19ms_Cand.pfd,0
-candidate_27_beam_07_segment_0_1838.89ms_Cand.pfd,1
-candidate_63_beam_07_segment_0_1839.68ms_Cand.pfd,1
+candidate_100_beam_04_segment_0_589.52ms_Cand.pfd,0.00014881285080560081
+candidate_125_beam_04_segment_0_4514.19ms_Cand.pfd,0.00014881285080560081
+candidate_27_beam_07_segment_0_1838.89ms_Cand.pfd,0.999847225235009
+candidate_63_beam_07_segment_0_1839.68ms_Cand.pfd,0.999847225235009
