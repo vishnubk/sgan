@@ -86,7 +86,7 @@ stacked_predictions = np.reshape(stacked_predictions, (len(dm_curve_data),4))
 classified_results = logistic_model.predict_proba(stacked_predictions)[:,1] # If you want a regression score
 
 with open('sgan_ai_score.csv', 'w') as f:
-    f.write('Filename, SGAN_score' + '\n') 
+    f.write('Filename,SGAN_score' + '\n') 
     for i in range(len(pfd_files)):
         f.write(basename_pfd_files[i] + ',' + str(classified_results[i]) + '\n')
 
