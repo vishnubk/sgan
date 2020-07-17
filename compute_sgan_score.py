@@ -3,7 +3,7 @@ from sklearn.ensemble import StackingClassifier
 from keras.models import load_model
 import time, sys, os, glob
 import numpy as np
-import argparse, pickle
+import argparse, pickle, errno
 
 class NotADirectoryError(Exception):
     pass
@@ -30,15 +30,16 @@ basename_pfd_files = [os.path.basename(filename) for filename in pfd_files]
 
 
 
-labelled_samples = 30000
-unlabelled_samples = 29283
-attempt_no = 1
+labelled_samples = 50814
+unlabelled_samples = 265172
+attempt_no = 4
 freq_phase_model = load_model('/fred/oz002/vishnu/sgan/semi_supervised_trained_models/freq_phase_best_discriminator_model_labelled_%d_unlabelled_%d_trial_%d.h5'%(labelled_samples, unlabelled_samples,  attempt_no))
 time_phase_model = load_model('/fred/oz002/vishnu/sgan/semi_supervised_trained_models/time_phase_best_discriminator_model_labelled_%d_unlabelled_%d_trial_%d.h5'%(labelled_samples, unlabelled_samples,  attempt_no))
 dm_curve_model = load_model('/fred/oz002/vishnu/sgan/semi_supervised_trained_models/dm_curve_best_discriminator_model_labelled_%d_unlabelled_%d_trial_%d.h5'%(labelled_samples, unlabelled_samples,  attempt_no))
 pulse_profile_model = load_model('/fred/oz002/vishnu/sgan/semi_supervised_trained_models/pulse_profile_best_discriminator_model_labelled_%d_unlabelled_%d_trial_%d.h5'%(labelled_samples, unlabelled_samples,  attempt_no))
 
-logistic_model = pickle.load(open('/fred/oz002/vishnu/pulsar_candidate_demystifier/codes/semi_supervised_trained_models/logistic_regression_labelled_%d_trial_%d.pkl'%(labelled_samples, attempt_no), 'rb'))
+logistic_model = pickle.load(open('/fred/oz002/vishnu/sgan/semi_supervised_trained_models/logistic_regression_labelled_%d_unlabelled_%d_trial_%d.pkl'%(labelled_samples, unlabelled_samples, attempt_no), 'rb'))
+
 
 dm_curve_combined_array = [np.load(filename[:-4] + '_dm_curve.npy') for filename in pfd_files]
 pulse_profile_combined_array = [np.load(filename[:-4] + '_pulse_profile.npy') for filename in pfd_files]
@@ -79,11 +80,10 @@ predictions_freq_phase = np.argmax(predictions_freq_phase, axis=1)
 predictions_freq_phase = np.reshape(predictions_freq_phase, len(predictions_freq_phase))
 
 
-
-
 stacked_predictions = np.stack((predictions_freq_phase, predictions_time_phase, predictions_dm_curve, predictions_pulse_profile), axis=1)
 stacked_predictions = np.reshape(stacked_predictions, (len(dm_curve_data),4))
-classified_results = logistic_model.predict(stacked_predictions)
+#classified_results = logistic_model.predict(stacked_predictions) # if you want a classification score
+classified_results = logistic_model.predict_proba(stacked_predictions)[:,1] # If you want a regression score
 
 with open('sgan_ai_score.csv', 'w') as f:
     f.write('Filename, SGAN_score' + '\n') 
