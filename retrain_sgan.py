@@ -46,7 +46,7 @@ parser.add_argument('-i', '--input_path', help='Absolute path of Input directory
 parser.add_argument('-v', '--validation_path', help='Absolute path of validation data directory', default="/fred/oz002/vishnu/sgan/validation_data/")
 parser.add_argument('-u', '--unlabelled_path', help='Absolute path of unlabelled data directory', default="/fred/oz002/vishnu/sgan/unlabelled_data/")
 parser.add_argument('-o', '--output', help='Output path to save model',  default="/fred/oz002/vishnu/sgan/sample_data/")
-parser.add_argument('-l', '--labels', help='File with classification labels',  default="/fred/oz002/vishnu/sgan/sample_data/training_labels.csv")
+parser.add_argument('-l', '--labels', help='File with training data classification labels',  default="/fred/oz002/vishnu/sgan/sample_data/training_labels.csv")
 parser.add_argument('-w', '--validation_labels', help='File with validation classification labels',  default="/fred/oz002/vishnu/sgan/validation_data/validation_labels.csv")
 parser.add_argument('-b', '--batch_size', help='No. of pfd files that will be read in one batch', default='1', type=int)
 
