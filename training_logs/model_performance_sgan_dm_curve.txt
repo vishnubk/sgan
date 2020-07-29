@@ -1,0 +1,10 @@
+intermediate_models/dm_curve_c_model_epoch_1.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_2.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_3.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_4.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_5.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_6.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_7.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_8.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_9.h5,0.600
+intermediate_models/dm_curve_c_model_epoch_10.h5,0.600
