@@ -11,6 +11,6 @@ If you would like to avoid docker, **compute_sgan_score.py** can be easily run b
 
 **Re-train SGAN with your own data:**
 
-  Run python retrain_sgan.py
+  Run the code **retrain_sgan.py**
   
   
