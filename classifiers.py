@@ -10,6 +10,7 @@ from keras.optimizers import Adam
 import numpy as np
 import math, time
 import itertools
+from keras import backend as K
 from sklearn.model_selection import train_test_split
 from keras.callbacks import TensorBoard, EarlyStopping, ModelCheckpoint
 from keras.initializers import RandomNormal
@@ -53,7 +54,6 @@ class Train_SGAN_DM_Curve:
 
     def define_discriminator(self, n_classes=2):
         in_shape = (self.bin_size, 1)
-        init = RandomNormal(mean=0.0, stddev=0.02)
         in_image = Input(shape=in_shape)
         model = Conv1D(32, 3, padding='same')(in_image)
         model = LeakyReLU(alpha=0.1)(model)
@@ -130,11 +130,11 @@ class Train_SGAN_DM_Curve:
             print('Number of examples with label %d is %d' %(i, len(X_with_class)))
             np.random.seed(attempt_no)
             # choose random instances
-            ix = randint(0, len(X_with_class), n_per_class)
+            ix = np.random.randint(0, len(X_with_class), n_per_class)
             # add to list
             [X_list.append(X_with_class[j]) for j in ix]
             [y_list.append(i) for j in ix]
-        return asarray(X_list), asarray(y_list)
+        return np.asarray(X_list), np.asarray(y_list)
 
 
     # select real samples
@@ -315,7 +315,6 @@ class Train_SGAN_Pulse_Profile:
 
     def define_discriminator(self, n_classes=2):
         in_shape = (self.bin_size, 1)
-        init = RandomNormal(mean=0.0, stddev=0.02)
         in_image = Input(shape=in_shape)
         model = Conv1D(32, 7, padding='same')(in_image)
         model = LeakyReLU(alpha=0.1)(model)
@@ -395,11 +394,11 @@ class Train_SGAN_Pulse_Profile:
             print('Number of examples with label %d is %d' %(i, len(X_with_class)))
             np.random.seed(attempt_no)
             # choose random instances
-            ix = randint(0, len(X_with_class), n_per_class)
+            ix = np.random.randint(0, len(X_with_class), n_per_class)
             # add to list
             [X_list.append(X_with_class[j]) for j in ix]
             [y_list.append(i) for j in ix]
-        return asarray(X_list), asarray(y_list)
+        return np.asarray(X_list), np.asarray(y_list)
 
 
     # select real samples
@@ -567,7 +566,6 @@ class Train_SGAN_Freq_Phase:
 
     def define_discriminator(self, n_classes=2):
         in_shape = (self.bin_size, self.bin_size, 1)
-        init = RandomNormal(mean=0.0, stddev=0.02)
         in_image = Input(shape=in_shape)
         model = Conv2D(32, (7, 7), padding='same')(in_image)
         model = LeakyReLU(alpha=0.1)(model)
@@ -650,11 +648,11 @@ class Train_SGAN_Freq_Phase:
             print('Number of examples with label %d is %d' %(i, len(X_with_class)))
             np.random.seed(attempt_no)
             # choose random instances
-            ix = randint(0, len(X_with_class), n_per_class)
+            ix = np.random.randint(0, len(X_with_class), n_per_class)
             # add to list
             [X_list.append(X_with_class[j]) for j in ix]
             [y_list.append(i) for j in ix]
-        return asarray(X_list), asarray(y_list)
+        return np.asarray(X_list), np.asarray(y_list)
 
 
     # select real samples
@@ -832,7 +830,6 @@ class Train_SGAN_Time_Phase:
 
     def define_discriminator(self, n_classes=2):
         in_shape = (self.bin_size, self.bin_size, 1)
-        init = RandomNormal(mean=0.0, stddev=0.02)
         in_image = Input(shape=in_shape)
         model = Conv2D(32, (7, 7), padding='same')(in_image)
         model = LeakyReLU(alpha=0.1)(model)
@@ -915,11 +912,11 @@ class Train_SGAN_Time_Phase:
             print('Number of examples with label %d is %d' %(i, len(X_with_class)))
             np.random.seed(attempt_no)
             # choose random instances
-            ix = randint(0, len(X_with_class), n_per_class)
+            ix = np.random.randint(0, len(X_with_class), n_per_class)
             # add to list
             [X_list.append(X_with_class[j]) for j in ix]
             [y_list.append(i) for j in ix]
-        return asarray(X_list), asarray(y_list)
+        return np.asarray(X_list), np.asarray(y_list)
 
 
     # select real samples
