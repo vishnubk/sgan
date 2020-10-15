@@ -1,6 +1,6 @@
 # **Semi-Supervised Generative Adversarial network for Pulsar Candidate Identification. (SGAN)**
 
-https://img.shields.io/twitter/follow/vishnubk93?style=social
+<img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/vishnubk93?style=social">
 
 **Procedure to Score PFD Files:**
 
