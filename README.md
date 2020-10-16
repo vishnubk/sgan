@@ -1,3 +1,10 @@
+
+
+[![Website](https://img.shields.io/website?label=arXiv&up_message=2010.07457&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://arxiv.org/abs/2010.07457)
+[![Website](https://img.shields.io/website?label=license&up_message=GPL-3.0&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://github.com/vishnubk/sgan/blob/master/LICENSE)
+![GitHub issues](https://img.shields.io/github/issues/vishnubk/sgan)
+[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fvishnubk93)](https://twitter.com/vishnubk93)
+
 # **Semi-Supervised Generative Adversarial network for Pulsar Candidate Identification. (SGAN)**
 
 You can find the paper describing this algorithm and results on ArXiv https://arxiv.org/pdf/2010.07457.pdf
