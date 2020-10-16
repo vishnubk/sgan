@@ -10,7 +10,7 @@
 You can find the paper describing this algorithm and results on ArXiv https://arxiv.org/pdf/2010.07457.pdf
 
 
-**Procedure to Score PFD Files:**
+**How to score your Pulsar Candidates (PFD format) ?**
 
 1. Run the code **extract_pfd_features.py**. This reads PRESTO pfd pulsar candidates and extracts the 4 features used by the AI to classify candidates. The output of this code is a bunch of numpy array files. In order to run this code, you will need to download the following docker image https://hub.docker.com/r/sap4pulsars/pics_ai. 
 
@@ -19,7 +19,7 @@ You can find the paper describing this algorithm and results on ArXiv https://ar
 If you would like to avoid docker, **compute_sgan_score.py** can be easily run by creating your own conda environment with python 3.6, keras tensorflow and any other packages you would need. https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
 
-**Re-train SGAN with your own data:**
+**How to Re-train SGAN with your own data?**
 
   Run the code **retrain_sgan.py**
   
