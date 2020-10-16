@@ -1,5 +1,7 @@
 # **Semi-Supervised Generative Adversarial network for Pulsar Candidate Identification. (SGAN)**
 
+You can find the paper describing this algorithm and results on ArXiv https://arxiv.org/pdf/2010.07457.pdf
+
 
 **Procedure to Score PFD Files:**
 
