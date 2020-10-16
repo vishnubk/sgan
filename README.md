@@ -5,7 +5,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/vishnubk/sgan)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fvishnubk93)](https://twitter.com/vishnubk93)
 
-# **Semi-Supervised Generative Adversarial network for Pulsar Candidate Identification. (SGAN)**
+# **Pulsar Candidate Identification Using Semi-Supervised Generative Adversarial Networks (SGAN).**
 
 You can find the paper describing this algorithm and results on ArXiv https://arxiv.org/pdf/2010.07457.pdf
 
