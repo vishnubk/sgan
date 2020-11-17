@@ -25,7 +25,7 @@ batch_size = args.batch_size
 output_path = args.output
 dir_path(path_to_data)
 
-candidate_files = sorted(glob.glob(path_to_data + '*.pfd') + glob.glob(path_to_data + '*.ar'))
+candidate_files = sorted(glob.glob(path_to_data + '*.pfd') + glob.glob(path_to_data + '*.ar2'))
 basename_candidate_files = [os.path.basename(filename) for filename in candidate_files]
 
 

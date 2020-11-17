@@ -29,7 +29,7 @@ output_path = args.output
 dir_path(path_to_data)
 
 pfd_files = sorted(glob.glob(path_to_data + '*.pfd'))
-ar2_files = sorted(glob.glob(path_to_data + '*.ar'))
+ar2_files = sorted(glob.glob(path_to_data + '*.ar2'))
 basename_pfd_files = [os.path.basename(filename) for filename in pfd_files]
 basename_ar2_files = [os.path.basename(filename) for filename in ar2_files]
 # If you want to recursively get all candidates in subdirectories
