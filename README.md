@@ -1,18 +1,10 @@
 
-
-[![Website](https://img.shields.io/website?label=arXiv&up_message=2010.07457&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://arxiv.org/abs/2010.07457)
-[![Website](https://img.shields.io/website?label=license&up_message=GPL-3.0&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://github.com/vishnubk/sgan/blob/master/LICENSE)
-![GitHub issues](https://img.shields.io/github/issues/vishnubk/sgan)
-[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fvishnubk93)](https://twitter.com/vishnubk93)
-
 # **Pulsar Candidate Identification Using Semi-Supervised Generative Adversarial Networks (SGAN).**
 
-You can find the paper describing this algorithm and results on ArXiv https://arxiv.org/pdf/2010.07457.pdf
 
+**How to score your Pulsar Candidates (PFD and/or AR files) ?**
 
-**How to score your Pulsar Candidates (PFD format) ?**
-
-1. Run the code **extract_pfd_features.py**. This reads PRESTO pfd pulsar candidates and extracts the 4 features used by the AI to classify candidates. The output of this code is a bunch of numpy array files. In order to run this code, you will need to download the following docker image https://hub.docker.com/r/sap4pulsars/pics_ai. 
+1. Run the code **extract_features_for_classification.py**. This reads PRESTO pfd or DSPSR's ar pulsar candidates and extracts the 4 features used by the AI to classify candidates. The output of this code is a bunch of numpy array files. In order to run this code, you will need to download the following docker image https://hub.docker.com/r/sap4pulsars/pics_ai. 
 
 2. Run the code **compute_sgan_score.py**. This code requires an anaconda3 installation along with Keras with Tensorflow2.X backend. For quick setup, download the following docker image https://hub.docker.com/r/vishnubk/keras_gpu_docker if you plan to use GPUs for scoring (recommended). Alternatively, if you plan to only use CPUs, download the following docker image https://hub.docker.com/r/vishnubk/keras_cpu_docker. 
 
