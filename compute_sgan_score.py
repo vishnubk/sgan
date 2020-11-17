@@ -15,7 +15,7 @@ def dir_path(string):
         raise NotADirectoryError("Directory path is not valid.")
 
 
-parser = argparse.ArgumentParser(description='Score PFD files based on SGAN Machine Learning Model')
+parser = argparse.ArgumentParser(description='Score PFD or AR files based on SGAN Machine Learning Model')
 parser.add_argument('-i', '--input_path', help='Absolute path of Input directory', default="/fred/oz002/vishnu/sgan/sample_data/")
 parser.add_argument('-o', '--output', help='Output file name',  default="/fred/oz002/vishnu/sgan/sample_data/")
 parser.add_argument('-b', '--batch_size', help='No. of pfd files that will be read in one batch', default='1', type=int)
@@ -25,8 +25,8 @@ batch_size = args.batch_size
 output_path = args.output
 dir_path(path_to_data)
 
-pfd_files = sorted(glob.glob(path_to_data + '*.pfd'))
-basename_pfd_files = [os.path.basename(filename) for filename in pfd_files]
+candidate_files = sorted(glob.glob(path_to_data + '*.pfd') + glob.glob(path_to_data + '*.ar'))
+basename_candidate_files = [os.path.basename(filename) for filename in candidate_files]
 
 
 
@@ -41,10 +41,10 @@ pulse_profile_model = load_model('semi_supervised_trained_models/pulse_profile_b
 logistic_model = pickle.load(open('semi_supervised_trained_models/logistic_regression_labelled_%d_unlabelled_%d_trial_%d.pkl'%(labelled_samples, unlabelled_samples, attempt_no), 'rb'))
 
 
-dm_curve_combined_array = [np.load(filename[:-4] + '_dm_curve.npy') for filename in pfd_files]
-pulse_profile_combined_array = [np.load(filename[:-4] + '_pulse_profile.npy') for filename in pfd_files]
-freq_phase_combined_array = [np.load(filename[:-4] + '_freq_phase.npy') for filename in pfd_files]
-time_phase_combined_array = [np.load(filename[:-4] + '_time_phase.npy') for filename in pfd_files]
+dm_curve_combined_array = [np.load(filename[:-4] + '_dm_curve.npy') for filename in candidate_files]
+pulse_profile_combined_array = [np.load(filename[:-4] + '_pulse_profile.npy') for filename in candidate_files]
+freq_phase_combined_array = [np.load(filename[:-4] + '_freq_phase.npy') for filename in candidate_files]
+time_phase_combined_array = [np.load(filename[:-4] + '_time_phase.npy') for filename in candidate_files]
 
 
 reshaped_time_phase = [np.reshape(f,(48,48,1)) for f in time_phase_combined_array]
@@ -87,8 +87,8 @@ classified_results = logistic_model.predict_proba(stacked_predictions)[:,1] # If
 
 with open('sgan_ai_score.csv', 'w') as f:
     f.write('Filename,SGAN_score' + '\n') 
-    for i in range(len(pfd_files)):
-        f.write(basename_pfd_files[i] + ',' + str(classified_results[i]) + '\n')
+    for i in range(len(candidate_files)):
+        f.write(basename_candidate_files[i] + ',' + str(classified_results[i]) + '\n')
 
 
 

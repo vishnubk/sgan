@@ -1,5 +1,8 @@
-Filename, SGAN_score
+Filename,SGAN_score
+J1720-3709_confirmation.ar,0.00014881285080560081
+J1722-3809_band6.ar,0.00014881285080560081
+J1722-3809_fold.ar,0.0020340961851499652
+J1732_lowlat_observation.ar,0.00014881285080560081
 candidate_100_beam_04_segment_0_589.52ms_Cand.pfd,0.00014881285080560081
-candidate_125_beam_04_segment_0_4514.19ms_Cand.pfd,0.00014881285080560081
+candidate_1_beam_01_segment_0_139.77ms_Cand_second.pfd,0.999847225235009
 candidate_27_beam_07_segment_0_1838.89ms_Cand.pfd,0.999847225235009
-candidate_63_beam_07_segment_0_1839.68ms_Cand.pfd,0.999847225235009
