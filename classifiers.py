@@ -138,7 +138,7 @@ class Train_SGAN_DM_Curve:
 
 
     # select real samples
-    def generate_real_samples(self, dataset, n_samples):
+    def generate_real_samples(self, dataset, n_samples, noisy_labels=True):
         # split into images and labels
         images, labels = dataset
         # choose random instances
@@ -146,10 +146,11 @@ class Train_SGAN_DM_Curve:
         # select images and labels
         X, labels = images[ix], labels[ix]
         # generate class labels
-        y = np.ones((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.9,1, (n_samples, 1))
-        y = y * noisy_labels
+        if noisy_labels:
+            y = np.random.uniform(0.9, 1, (n_samples, 1))
+        else:
+            y = np.ones((n_samples, 1))
+        
         return [X, labels], y
 
     # generate points in latent space as input for the generator
@@ -161,16 +162,17 @@ class Train_SGAN_DM_Curve:
         return z_input
 
     ## use the generator to generate n fake examples, with class labels
-    def generate_fake_samples(self, generator, latent_dim, n_samples):
+    def generate_fake_samples(self, generator, latent_dim, n_samples, noisy_labels=True):
         # generate points in latent space
         z_input = self.generate_latent_points(latent_dim, n_samples)
         # predict outputs
         images = generator.predict(z_input)
         # create class labels
-        y = np.zeros((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.1,0.2, (n_samples, 1))
-        y = y * noisy_labels
+        if noisy_labels:
+            y = np.random.uniform(0.0,0.2, (n_samples, 1))
+        else:
+            y = np.zeros((n_samples, 1))
+        
         return images, y
 
 
@@ -402,7 +404,7 @@ class Train_SGAN_Pulse_Profile:
 
 
     # select real samples
-    def generate_real_samples(self, dataset, n_samples):
+    def generate_real_samples(self, dataset, n_samples, noisy_labels=True):
         # split into images and labels
         images, labels = dataset
         # choose random instances
@@ -410,10 +412,11 @@ class Train_SGAN_Pulse_Profile:
         # select images and labels
         X, labels = images[ix], labels[ix]
         # generate class labels
-        y = np.ones((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.9,1, (n_samples, 1))
-        y = y * noisy_labels
+        if noisy_labels:
+            y = np.random.uniform(0.9,1, (n_samples, 1))
+        else:
+            y = np.ones((n_samples, 1))
+
         return [X, labels], y
 
     # generate points in latent space as input for the generator
@@ -425,16 +428,16 @@ class Train_SGAN_Pulse_Profile:
         return z_input
 
     ## use the generator to generate n fake examples, with class labels
-    def generate_fake_samples(self, generator, latent_dim, n_samples):
+    def generate_fake_samples(self, generator, latent_dim, n_samples, noisy_labels=True):
         # generate points in latent space
         z_input = self.generate_latent_points(latent_dim, n_samples)
         # predict outputs
         images = generator.predict(z_input)
-        # create class labels
-        y = np.zeros((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.1,0.2, (n_samples, 1))
-        y = y * noisy_labels
+        if noisy_labels:
+	    y = np.random.uniform(0, 0.2, (n_samples, 1))
+        else:
+            y = np.zeros((n_samples, 1))
+
         return images, y
 
 
@@ -657,7 +660,7 @@ class Train_SGAN_Freq_Phase:
 
     # select real samples
 
-    def generate_real_samples(self, dataset, n_samples):
+    def generate_real_samples(self, dataset, n_samples, noisy_labels=True):
         # split into images and labels
         images, labels = dataset
         # choose random instances
@@ -665,18 +668,18 @@ class Train_SGAN_Freq_Phase:
         # select images and labels
         X, labels = images[ix], labels[ix]
         # generate class labels
-        y = np.ones((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.7,1.2, (n_samples, 1))
-        y = y * noisy_labels
-
+       
+        if noisy_labels:
+            y = np.random.uniform(0.7,1.2, (n_samples, 1))
+        else:
+            y = np.ones((n_samples, 1))
+ 
         #Ocasionally flip labels
         shuffler = np.random.uniform(0,1)
         if shuffler <= 0.05:
-            noisy_labels = np.random.uniform(0.0,0.3, (n_samples, 1))
-            y = y * noisy_labels
-
+            y = np.random.uniform(0.0,0.3, (n_samples, 1))
         return [X, labels], y
+
     # generate points in latent space as input for the generator
     def generate_latent_points(self, latent_dim, n_samples):
         # generate points in the latent space
@@ -687,22 +690,22 @@ class Train_SGAN_Freq_Phase:
 
 
     # use the generator to generate n fake examples, with class labels
-    def generate_fake_samples(self, generator, latent_dim, n_samples):
+    def generate_fake_samples(self, generator, latent_dim, n_samples, noisy_labels=True):
         # generate points in latent space
         z_input = self.generate_latent_points(latent_dim, n_samples)
         # predict outputs
         images = generator.predict(z_input)
         # create class labels
-        y = np.zeros((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.0,0.3, (n_samples, 1))
-        y = y * noisy_labels
-
+        if noisy_labels:
+            y = np.random.uniform(0.0,0.3, (n_samples, 1))
+        else:
+            y = np.zeros((n_samples, 1))
+        
         #Ocasionally flip labels
         shuffler = np.random.uniform(0,1)
         if shuffler <= 0.05:
-            noisy_labels = np.random.uniform(0.7,1.2, (n_samples, 1))
-            y = y * noisy_labels
+            y = np.random.uniform(0.7,1.2, (n_samples, 1))
+
         return images, y
 
 
@@ -921,7 +924,7 @@ class Train_SGAN_Time_Phase:
 
     # select real samples
 
-    def generate_real_samples(self, dataset, n_samples):
+    def generate_real_samples(self, dataset, n_samples, noisy_labels=True):
         # split into images and labels
         images, labels = dataset
         # choose random instances
@@ -929,16 +932,15 @@ class Train_SGAN_Time_Phase:
         # select images and labels
         X, labels = images[ix], labels[ix]
         # generate class labels
-        y = np.ones((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.7,1.2, (n_samples, 1))
-        y = y * noisy_labels
-
+        if noisy_labels:
+            y = np.random.uniform(0.7,1.2, (n_samples, 1))
+        else:
+            y = np.ones((n_samples, 1))
+        
         #Ocasionally flip labels
         shuffler = np.random.uniform(0,1)
         if shuffler <= 0.05:
-            noisy_labels = np.random.uniform(0.0,0.3, (n_samples, 1))
-            y = y * noisy_labels
+            y = np.random.uniform(0.0,0.3, (n_samples, 1))
 
         return [X, labels], y
     # generate points in latent space as input for the generator
@@ -951,22 +953,22 @@ class Train_SGAN_Time_Phase:
 
 
     # use the generator to generate n fake examples, with class labels
-    def generate_fake_samples(self, generator, latent_dim, n_samples):
+    def generate_fake_samples(self, generator, latent_dim, n_samples, noisy_labels=True):
         # generate points in latent space
         z_input = self.generate_latent_points(latent_dim, n_samples)
         # predict outputs
         images = generator.predict(z_input)
         # create class labels
-        y = np.zeros((n_samples, 1))
-        #Generate noisy labels
-        noisy_labels = np.random.uniform(0.0,0.3, (n_samples, 1))
-        y = y * noisy_labels
+        if noisy_labels:
+            y = np.random.uniform(0.0,0.3, (n_samples, 1))
+        else:
+            y = np.zeros((n_samples, 1))
 
         #Ocasionally flip labels
         shuffler = np.random.uniform(0,1)
         if shuffler <= 0.05:
-            noisy_labels = np.random.uniform(0.7,1.2, (n_samples, 1))
-            y = y * noisy_labels
+            y = np.random.uniform(0.7,1.2, (n_samples, 1))
+
         return images, y
 
 
