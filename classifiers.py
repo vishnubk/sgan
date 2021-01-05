@@ -434,7 +434,7 @@ class Train_SGAN_Pulse_Profile:
         # predict outputs
         images = generator.predict(z_input)
         if noisy_labels:
-	    y = np.random.uniform(0, 0.2, (n_samples, 1))
+        y = np.random.uniform(0, 0.2, (n_samples, 1))
         else:
             y = np.zeros((n_samples, 1))
 
