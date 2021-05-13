@@ -1,3 +1,7 @@
+[![Website](https://img.shields.io/website?label=Paper&up_message=MNRAS&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://academic.oup.com/mnras/advance-article/doi/10.1093/mnras/stab1308/6273144)
+[![Website](https://img.shields.io/website?label=license&up_message=GPL-3.0&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://github.com/vishnubk/sgan/blob/master/LICENSE)
+![GitHub issues](https://img.shields.io/github/issues/vishnubk/sgan)
+[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fvishnubk93)](https://twitter.com/vishnubk93)
 
 # **Pulsar Candidate Identification Using Semi-Supervised Generative Adversarial Networks (SGAN).**
 
