@@ -25,7 +25,9 @@ If you would like to avoid docker, **compute_sgan_score.py** can be easily run b
 1. If you want access to raw data i.e the PFD files to extract your own features. You can find them in this FTP link.
 
 Raw Data (272 GB): ftp.mpifr-bonn.mpg.de:outgoing/vishnu/sgan_data/sgan_lowlat_raw_dataset.tar.gz
-File Labels Full Dataset ftp.mpifr-bonn.mpg.de:outgoing/vishnu/sgan_data/labelled_candidates_sgan_paper_jan_2021.csv
+
+File Labels Full Dataset: ftp.mpifr-bonn.mpg.de:outgoing/vishnu/sgan_data/labelled_candidates_sgan_paper_jan_2021.csv
+
 Test Set Labels: ftp.mpifr-bonn.mpg.de:outgoing/vishnu/sgan_data/test_set_relabelled_jan_2021.csv
 
 2. If you would like to use the same 4 features (Freq-Phase, Time-Phase, DM-Curve and Pulse-Profile) used in the paper. Then you can directly pull the normalised & downsampled data. This can be directly fed into your favorite neural network. 
