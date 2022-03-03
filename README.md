@@ -19,8 +19,9 @@ If you would like to avoid docker, **compute_sgan_score.py** can be easily run b
 
 **Update: 3 March 2022: Previous version of the retraining code mixed up the training & validation data and its associated file labels. Download the new version if you plan to retrain this network (Does not impact the original results reported in the paper)**
 
-  Run the code **retrain_sgan.py**
-  Run **check_retrained_model_performance.py** to test the performance of your retrained SGAN Model against a test-set
+  A. Run the code **retrain_sgan.py**
+  
+  B. Run **check_retrained_model_performance.py** to test the performance of your retrained SGAN Model against a test-set
   
   
 **Instructions on how to download the training and test set used in the paper.**
