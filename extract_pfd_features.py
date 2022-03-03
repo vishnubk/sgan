@@ -60,16 +60,17 @@ if batch_size > 1:
 
 
 else:
+    for filename in glob.iglob(path_to_data + '*.pfd'):
+        basename = os.path.basename(filename)
+        data_object = pfddata(filename)
+        time_phase_data = data_object.getdata(intervals=48)
+        freq_phase_data = data_object.getdata(subbands=48)
+        pulse_profile_data = data_object.getdata(phasebins=64)
+        dm_curve_data = data_object.getdata(DMbins=60)
+        ''' Save all features as numpy array files '''
+        np.save(output_path + basename[:-4] + '_time_phase.npy', time_phase_data)
+        np.save(output_path + basename[:-4] + '_freq_phase.npy', freq_phase_data)
+        np.save(output_path + basename[:-4] + '_pulse_profile.npy', pulse_profile_data)
+        np.save(output_path + basename[:-4] + '_dm_curve.npy', dm_curve_data)
 
-    data_object = [pfddata(filename) for filename in pfd_files]
 
-    time_phase_data = [filename.getdata(intervals=48) for filename in data_object]
-    freq_phase_data = [filename.getdata(subbands=48) for filename in data_object]
-    pulse_profile_data = [filename.getdata(phasebins=64) for filename in data_object]
-    dm_curve_data = [filename.getdata(DMbins=60) for filename in data_object]
-    ###Save all features as numpy array files
-    for i in range(len(pfd_files)):
-        np.save(output_path + basename_pfd_files[i][:-4] + '_time_phase.npy', time_phase_data[i])
-        np.save(output_path + basename_pfd_files[i][:-4] + '_freq_phase.npy', freq_phase_data[i])
-        np.save(output_path + basename_pfd_files[i][:-4] + '_pulse_profile.npy', pulse_profile_data[i])
-        np.save(output_path + basename_pfd_files[i][:-4] + '_dm_curve.npy', dm_curve_data[i])

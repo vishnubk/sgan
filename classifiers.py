@@ -23,7 +23,7 @@ class Train_SGAN_DM_Curve:
        Class to retrain SGAN using DM Curve Data.
 
                                                  """
-    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, bin_size=60):
+    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, lr_dis = 0.0008, lr_gan = 0.003, bin_size=60):
         self.data = data
         self.labels = labels
         self.validation_data = validation_data
@@ -32,6 +32,8 @@ class Train_SGAN_DM_Curve:
         self.unlabelled_labels = unlabelled_labels
         self.bin_size = bin_size
         self.batch_size = batch_size
+        self.lr_dis = lr_dis
+        self.lr_gan = lr_gan
 
     def Conv1DTranspose(self, input_tensor, filters, kernel_size, strides=2, padding='same'):
 
@@ -75,12 +77,12 @@ class Train_SGAN_DM_Curve:
         c_out_layer = Activation('softmax')(fe)
         # define and compile supervised discriminator model
         c_model = Model(in_image, c_out_layer)
-        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr=0.0008, beta_1=0.5), metrics=['accuracy'])
+        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5), metrics=['accuracy'])
         # unsupervised output
         d_out_layer = Lambda(self.custom_activation)(fe)
         # define and compile unsupervised discriminator model
         d_model = Model(in_image, d_out_layer)
-        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr=0.0008, beta_1=0.5))
+        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5))
         return d_model, c_model
 
     def define_generator(self, latent_dim=100):
@@ -115,7 +117,7 @@ class Train_SGAN_DM_Curve:
         # define gan model as taking noise and outputting a classification
         model = Model(g_model.input, gan_output)
         # compile model
-        opt = Adam(lr=0.003, beta_1=0.5)
+        opt = Adam(lr = self.lr_gan, beta_1 = 0.5)
         model.compile(loss='binary_crossentropy', optimizer=opt)
         return model
 
@@ -286,7 +288,7 @@ class Train_SGAN_Pulse_Profile:
        Class to retrain SGAN using Pulse Profile Data.
 
                                                  """
-    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, bin_size=64):
+    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, lr_dis = 0.001, lr_gan = 0.001, bin_size=64):
         self.data = data
         self.labels = labels
         self.validation_data = validation_data
@@ -295,6 +297,9 @@ class Train_SGAN_Pulse_Profile:
         self.unlabelled_labels = unlabelled_labels
         self.bin_size = bin_size
         self.batch_size = batch_size
+        self.lr_dis = lr_dis
+        self.lr_gan = lr_gan
+
 
     def Conv1DTranspose(self, input_tensor, filters, kernel_size, strides=2, padding='same'):
 
@@ -338,12 +343,12 @@ class Train_SGAN_Pulse_Profile:
         c_out_layer = Activation('softmax')(fe)
         ''' define and compile supervised discriminator model '''
         c_model = Model(in_image, c_out_layer)
-        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr=0.001, beta_1=0.5), metrics=['accuracy'])
+        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5), metrics=['accuracy'])
         ''' unsupervised output '''
         d_out_layer = Lambda(self.custom_activation)(fe)
         ''' define and compile unsupervised discriminator model '''
         d_model = Model(in_image, d_out_layer)
-        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr=0.001, beta_1=0.5))
+        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5))
         return d_model, c_model
 
 
@@ -381,7 +386,7 @@ class Train_SGAN_Pulse_Profile:
         # define gan model as taking noise and outputting a classification
         model = Model(g_model.input, gan_output)
         # compile model
-        opt = Adam(lr=0.001, beta_1=0.5)
+        opt = Adam(lr = self.lr_gan, beta_1 = 0.5)
         model.compile(loss='binary_crossentropy', optimizer=opt)
         return model
 
@@ -552,7 +557,7 @@ class Train_SGAN_Freq_Phase:
        Class to retrain SGAN using Freq Phase Data.
 
                                                  """
-    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, bin_size=48):
+    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, lr_dis = 0.0002, lr_gan = 0.0002, bin_size=48):
         self.data = data
         self.labels = labels
         self.validation_data = validation_data
@@ -561,6 +566,8 @@ class Train_SGAN_Freq_Phase:
         self.unlabelled_labels = unlabelled_labels
         self.bin_size = bin_size
         self.batch_size = batch_size
+        self.lr_dis = lr_dis
+        self.lr_gan = lr_gan
 
     def custom_activation(self, output):
         logexpsum = backend.sum(backend.exp(output), axis=-1, keepdims=True)
@@ -592,12 +599,12 @@ class Train_SGAN_Freq_Phase:
         c_out_layer = Activation('softmax')(fe)
         ''' define and compile supervised discriminator model '''
         c_model = Model(in_image, c_out_layer)
-        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr=0.0002, beta_1=0.5), metrics=['accuracy'])
+        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5), metrics=['accuracy'])
         ''' unsupervised output '''
         d_out_layer = Lambda(self.custom_activation)(fe)
         ''' define and compile unsupervised discriminator model '''
         d_model = Model(in_image, d_out_layer)
-        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr=0.0002, beta_1=0.5))
+        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5))
         return d_model, c_model
 
 
@@ -636,7 +643,8 @@ class Train_SGAN_Freq_Phase:
         # define gan model as taking noise and outputting a classification
         model = Model(g_model.input, gan_output)
         # compile model
-        opt = Adam(lr=0.0002, beta_1=0.5)
+        opt = Adam(lr = self.lr_gan, beta_1 = 0.5)
+        #opt = Adam(lr=0.0002, beta_1=0.5)
         model.compile(loss='binary_crossentropy', optimizer=opt)
         return model
 
@@ -816,7 +824,7 @@ class Train_SGAN_Time_Phase:
        Class to retrain SGAN using Time-Phase Data.
 
                                                  """
-    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, bin_size=48):
+    def __init__(self, data, labels, validation_data, validation_labels, unlabelled_data, unlabelled_labels, batch_size, lr_dis = 0.0002, lr_gan = 0.0002, bin_size=48):
         self.data = data
         self.labels = labels
         self.validation_data = validation_data
@@ -825,6 +833,8 @@ class Train_SGAN_Time_Phase:
         self.unlabelled_labels = unlabelled_labels
         self.bin_size = bin_size
         self.batch_size = batch_size
+        self.lr_dis = lr_dis
+        self.lr_gan = lr_gan
 
     def custom_activation(self, output):
         logexpsum = backend.sum(backend.exp(output), axis=-1, keepdims=True)
@@ -856,12 +866,12 @@ class Train_SGAN_Time_Phase:
         c_out_layer = Activation('softmax')(fe)
         ''' define and compile supervised discriminator model '''
         c_model = Model(in_image, c_out_layer)
-        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr=0.0002, beta_1=0.5), metrics=['accuracy'])
+        c_model.compile(loss='sparse_categorical_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5), metrics=['accuracy'])
         ''' unsupervised output '''
         d_out_layer = Lambda(self.custom_activation)(fe)
         ''' define and compile unsupervised discriminator model '''
         d_model = Model(in_image, d_out_layer)
-        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr=0.0002, beta_1=0.5))
+        d_model.compile(loss='binary_crossentropy', optimizer=Adam(lr = self.lr_dis, beta_1 = 0.5))
         return d_model, c_model
 
 
@@ -900,7 +910,7 @@ class Train_SGAN_Time_Phase:
         # define gan model as taking noise and outputting a classification
         model = Model(g_model.input, gan_output)
         # compile model
-        opt = Adam(lr=0.0002, beta_1=0.5)
+        opt = Adam(lr = self.lr_gan, beta_1 = 0.5)
         model.compile(loss='binary_crossentropy', optimizer=opt)
         return model
 

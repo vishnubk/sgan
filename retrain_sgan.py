@@ -42,13 +42,15 @@ def dir_path(string):
 -1 -> Unlabelled Candidate
 '''
 parser = argparse.ArgumentParser(description='Re-train SGAN Machine Learning Model using User input PFD Files')
-parser.add_argument('-i', '--input_path', help='Absolute path of Input directory', default="/fred/oz002/vishnu/sgan/sample_data/")
-parser.add_argument('-v', '--validation_path', help='Absolute path of validation data directory', default="/fred/oz002/vishnu/sgan/validation_data/")
-parser.add_argument('-u', '--unlabelled_path', help='Absolute path of unlabelled data directory', default="/fred/oz002/vishnu/sgan/unlabelled_data/")
-parser.add_argument('-o', '--output', help='Output path to save model',  default="/fred/oz002/vishnu/sgan/sample_data/")
-parser.add_argument('-l', '--labels', help='File with training data classification labels',  default="/fred/oz002/vishnu/sgan/sample_data/training_labels.csv")
-parser.add_argument('-w', '--validation_labels', help='File with validation classification labels',  default="/fred/oz002/vishnu/sgan/validation_data/validation_labels.csv")
+parser.add_argument('-i', '--input_path', help='Absolute path of Input directory', default="sample_data/")
+parser.add_argument('-v', '--validation_path', help='Absolute path of validation data directory', default="validation_data/")
+parser.add_argument('-u', '--unlabelled_path', help='Absolute path of unlabelled data directory', default="unlabelled_data/")
+parser.add_argument('-o', '--output', help='Output path to save model',  default="sample_data/")
+parser.add_argument('-l', '--labels', help='File with training data classification labels',  default="sample_data/training_labels.csv")
+parser.add_argument('-w', '--validation_labels', help='File with validation classification labels',  default="validation_data/validation_labels.csv")
 parser.add_argument('-b', '--batch_size', help='No. of pfd files that will be read in one batch', default='1', type=int)
+parser.add_argument('-e', '--total_epochs', help='Total epochs to train', default='300', type=int)
+
 
 
 
@@ -61,17 +63,21 @@ output_path = args.output
 training_labels_file = args.labels
 validation_labels_file = args.validation_labels
 dir_path(path_to_data)
+total_epochs = args.total_epochs
 
 training_labels = pd.read_csv(training_labels_file)
 validation_labels = pd.read_csv(validation_labels_file)
-
+print('Label Files Read')
 
 for index, row in training_labels.iterrows():
     if not os.path.isfile(path_to_data + row['Filename']):
         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), row['Filename'])
 
-pfd_files = sorted(glob.glob(path_to_data + '*.pfd'))
-validation_files = sorted(glob.glob(validation_data_path + '*.pfd'))
+pfd_files = path_to_data + training_labels['Filename'].to_numpy()
+validation_files = validation_data_path + validation_labels['Filename'].to_numpy()
+
+#pfd_files = sorted(glob.glob(path_to_data + '*.pfd'))
+#validation_files = sorted(glob.glob(validation_data_path + '*.pfd'))
 unlabelled_files = sorted(glob.glob(unlabelled_data_path + '*.pfd'))
 
 
@@ -98,7 +104,7 @@ freq_phase_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in 
 time_phase_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in reshaped_time_phase])
 
 
-
+print('Training Data Loaded')
 
 ''' Repeat above steps for validation data'''
 
@@ -118,6 +124,7 @@ pulse_profile_validation_data = np.array([np.interp(a, (a.min(), a.max()), (-1, 
 freq_phase_validation_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in reshaped_freq_phase_validation])
 time_phase_validation_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in reshaped_time_phase_validation])
 
+print('Validation Data Loaded')
 
 ''' Repeat above steps for unlabelled data'''
 
@@ -136,6 +143,7 @@ dm_curve_unlabelled_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) 
 pulse_profile_unlabelled_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in reshaped_pulse_profile_unlabelled])
 freq_phase_unlabelled_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in reshaped_freq_phase_unlabelled])
 time_phase_unlabelled_data = np.array([np.interp(a, (a.min(), a.max()), (-1, +1)) for a in reshaped_time_phase_unlabelled])
+print('Unlabelled Data Loaded')
 
 
 label_population = training_labels['Classification'].value_counts()
@@ -147,10 +155,20 @@ training_labels = training_labels['Classification'].to_numpy()
 validation_labels = validation_labels['Classification'].to_numpy()
 unlabelled_lables = np.tile(-1, int(dm_curve_unlabelled_data.shape[0]))
 
-dm_curve_instance = Train_SGAN_DM_Curve(dm_curve_data, training_labels, dm_curve_validation_data, validation_labels, dm_curve_unlabelled_data, unlabelled_lables, 2)
-pulse_profile_instance = Train_SGAN_Pulse_Profile(pulse_profile_data, training_labels, pulse_profile_validation_data, validation_labels, pulse_profile_unlabelled_data, unlabelled_lables, 2)
-freq_phase_instance = Train_SGAN_Freq_Phase(freq_phase_data, training_labels, freq_phase_validation_data, validation_labels, freq_phase_unlabelled_data, unlabelled_lables, 2)
-time_phase_instance = Train_SGAN_Time_Phase(time_phase_data, training_labels, time_phase_validation_data, validation_labels, time_phase_unlabelled_data, unlabelled_lables, 2)
+''' Learning rates used in SGAN Paper (DM Curve, Pulse Profile, Freq Phase, Time Phase)
+    Try tuning this for best performance if you are using a different dataset from Lowlat (The one I used in the paper)
+                '''
+learning_rate_discriminator = [0.0008, 0.001, 0.0002, 0.0002] 
+learning_rate_gan = [0.003, 0.001, 0.0002, 0.0002] 
+
+dm_curve_instance = Train_SGAN_DM_Curve(dm_curve_data, training_labels, dm_curve_validation_data, validation_labels, dm_curve_unlabelled_data, unlabelled_lables, batch_size, \
+lr_dis = learning_rate_discriminator[0], lr_gan = learning_rate_gan[0])
+pulse_profile_instance = Train_SGAN_Pulse_Profile(pulse_profile_data, training_labels, pulse_profile_validation_data, validation_labels, pulse_profile_unlabelled_data, unlabelled_lables, batch_size, \
+lr_dis = learning_rate_discriminator[1], lr_gan = learning_rate_gan[1])
+freq_phase_instance = Train_SGAN_Freq_Phase(freq_phase_data, training_labels, freq_phase_validation_data, validation_labels, freq_phase_unlabelled_data, unlabelled_lables, batch_size, \
+lr_dis = learning_rate_discriminator[2], lr_gan = learning_rate_gan[2])
+time_phase_instance = Train_SGAN_Time_Phase(time_phase_data, training_labels, time_phase_validation_data, validation_labels, time_phase_unlabelled_data, unlabelled_lables, batch_size, \
+lr_dis = learning_rate_discriminator[3], lr_gan = learning_rate_gan[3])
 
 
 
@@ -158,12 +176,12 @@ time_phase_instance = Train_SGAN_Time_Phase(time_phase_data, training_labels, ti
 d_model, c_model = dm_curve_instance.define_discriminator()
 g_model = dm_curve_instance.define_generator()
 gan_model = dm_curve_instance.define_gan(g_model, d_model)
-dm_curve_instance.train(g_model, d_model, c_model, gan_model)
+dm_curve_instance.train(g_model, d_model, c_model, gan_model, n_epochs = total_epochs)
 print('DM Curve Model Retraining has been completed')
 d_model, c_model = pulse_profile_instance.define_discriminator()
 g_model = pulse_profile_instance.define_generator()
 gan_model = pulse_profile_instance.define_gan(g_model, d_model)
-pulse_profile_instance.train(g_model, d_model, c_model, gan_model)
+pulse_profile_instance.train(g_model, d_model, c_model, gan_model, n_epochs = total_epochs)
 
 print('Pulse Profile Model Retraining has been completed')
 
@@ -173,14 +191,14 @@ print('Pulse Profile Model Retraining has been completed')
 d_model, c_model = freq_phase_instance.define_discriminator()
 g_model = freq_phase_instance.define_generator()
 gan_model = freq_phase_instance.define_gan(g_model, d_model)
-freq_phase_instance.train(g_model, d_model, c_model, gan_model)
+freq_phase_instance.train(g_model, d_model, c_model, gan_model, n_epochs = total_epochs)
 
 print('Freq-Phase Model Retraining has been completed')
 
 d_model, c_model = time_phase_instance.define_discriminator()
 g_model = time_phase_instance.define_generator()
 gan_model = time_phase_instance.define_gan(g_model, d_model)
-time_phase_instance.train(g_model, d_model, c_model, gan_model)
+time_phase_instance.train(g_model, d_model, c_model, gan_model, n_epochs = total_epochs)
 
 print('Time-Phase Model Retraining has been completed')
 
