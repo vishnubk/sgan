@@ -17,7 +17,7 @@ If you would like to avoid docker, **compute_sgan_score.py** can be easily run b
 
 **How to Re-train SGAN with your own data?**
 
-**Update: 3 March 2022: Previous version of the retraining code mixed up the training & validation data and its associated file labels. Download the new version if you plan to retrain this network (Does not impact the original results reported in the paper) **
+**Update: 3 March 2022: Previous version of the retraining code mixed up the training & validation data and its associated file labels. Download the new version if you plan to retrain this network (Does not impact the original results reported in the paper)**
 
   Run the code **retrain_sgan.py**
   
