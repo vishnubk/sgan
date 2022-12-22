@@ -6,14 +6,23 @@
 
 **Generator (100 labelled + 10,000 unlabelled samples)** 
 
-![alt-text](GIFS/final_freq_phase.gif)
-![alt-text](GIFS/final_time_phase.gif)
-![alt-text](GIFS/final_dm_curve.gif)
-![alt-text](GIFS/final_pulse_profile.gif)
+<p float="left">
+  <img src="GIFS/final_freq_phase.gif" width="350" height="250" />
+  <img src="GIFS/final_time_phase.gif" width="350" height="250" /> 
+ </p>
+ 
+ <p float="left">
+  <img src="GIFS/final_dm_curve.gif" width="350" height="250" />
+  <img src="GIFS/final_pulse_profile.gif" width="350" height="250" /> 
+ </p>
 
 
-![alt-text](GIFS/final_discriminator_performance.gif) 
-<img src="GIFS/sgan_schematic_diagram_enlarged.png" width="550" height="400">
+<p float="left">
+  <img src="GIFS/final_discriminator_performance.gif" width="450" height="350" />
+  <img src="GIFS/sgan_schematic_diagram_enlarged.png" width="520" height="400" /> 
+ </p>
+
+
 
 
 
