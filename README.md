@@ -20,9 +20,10 @@
 
 
 <p float="left">
-  <img src="GIFS/final_discriminator_performance.gif" width="400" height="350" />
-  <img src="GIFS/sgan_schematic_diagram_enlarged.png" width="500" height="400" /> 
+  <img src="GIFS/final_discriminator_performance.gif" width="400" height="380" />
+  <img src="GIFS/sgan_schematic_diagram_enlarged.png" width="400" height="350" /> 
  </p>
+
 
 
 
