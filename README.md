@@ -18,12 +18,13 @@
   <img src="GIFS/final_pulse_profile.gif" width="350" height="250" /> 
  </p>
 
+<H2 align="center"> <b> Discriminator (100 labelled + 10,000 unlabelled samples) </H2>
 
-<p float="left">
-  <img src="GIFS/final_discriminator_performance.gif" width="350" height="380" />
-  <img src="GIFS/sgan_schematic_diagram_enlarged.png" width="350" height="380" /> 
- </p>
+<p align="center"> <img width="500" height="400" src="GIFS/final_discriminator_performance.gif"> </p>
 
+<H2 align="center"> <b> Schematic of SGAN Training </H2>
+
+<p align="center"> <img width="500" height="400" src="GIFS/sgan_schematic_diagram_enlarged.png"> </p>
 
 
 
