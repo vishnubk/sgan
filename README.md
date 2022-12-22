@@ -4,7 +4,9 @@
 ![GitHub issues](https://img.shields.io/github/issues/vishnubk/sgan)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fvishnubk93)](https://twitter.com/vishnubk93)
 
-**Generator (100 labelled + 10,000 unlabelled samples)** 
+
+<H2 align="center"> <b> Generator (100 labelled + 10,000 unlabelled samples) </H2>
+
 
 <p float="left">
   <img src="GIFS/final_freq_phase.gif" width="350" height="250" />
@@ -18,12 +20,9 @@
 
 
 <p float="left">
-  <img src="GIFS/final_discriminator_performance.gif" width="450" height="350" />
-  <img src="GIFS/sgan_schematic_diagram_enlarged.png" width="520" height="400" /> 
+  <img src="GIFS/final_discriminator_performance.gif" width="400" height="350" />
+  <img src="GIFS/sgan_schematic_diagram_enlarged.png" width="500" height="400" /> 
  </p>
-
-
-
 
 
 
