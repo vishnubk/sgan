@@ -1,9 +1,21 @@
+# **Pulsar Candidate Identification Using Semi-Supervised Generative Adversarial Networks (SGAN).**
 [![Website](https://img.shields.io/website?label=Paper&up_message=MNRAS&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://academic.oup.com/mnras/advance-article/doi/10.1093/mnras/stab1308/6273144)
 [![Website](https://img.shields.io/website?label=license&up_message=GPL-3.0&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.07457)](https://github.com/vishnubk/sgan/blob/master/LICENSE)
 ![GitHub issues](https://img.shields.io/github/issues/vishnubk/sgan)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fvishnubk93)](https://twitter.com/vishnubk93)
 
-# **Pulsar Candidate Identification Using Semi-Supervised Generative Adversarial Networks (SGAN).**
+**Generator (100 labelled + 10,000 unlabelled samples)** 
+
+![alt-text](GIFS/final_freq_phase.gif)
+![alt-text](GIFS/final_time_phase.gif)
+![alt-text](GIFS/final_dm_curve.gif)
+![alt-text](GIFS/final_pulse_profile.gif)
+
+
+![alt-text](GIFS/final_discriminator_performance.gif) 
+<img src="GIFS/sgan_schematic_diagram_enlarged.png" width="550" height="400">
+
+
 
 
 **How to score your Pulsar Candidates (PFD and/or AR files) ?**
